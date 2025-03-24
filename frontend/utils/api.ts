@@ -22,3 +22,12 @@ export const setAuthToken = (token: string | null) => {
     delete api.defaults.headers.common["Authorization"];
   }
 };
+export const getTaskSuggestion = async (prompt: string) => {
+  try {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/ai/suggest-task?prompt=${encodeURIComponent(prompt)}`);
+    return res.data.suggestion;
+  } catch (error) {
+    console.error("AI Suggestion Error:", error);
+    return null;
+  }
+};
